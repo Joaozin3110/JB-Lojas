@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JB GROUP | SUPREMACY HUB</title>
+    <title>JB LOJAS | PAINEL</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@300;600;900&display=swap');
 
@@ -18,7 +18,19 @@
             --border-glass: rgba(255, 255, 255, 0.08);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        /* Reset e Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        @media (min-width: 769px) {
+            * { cursor: none; }
+            #custom-cursor {
+                width: 20px; height: 20px; border: 2px solid var(--primary);
+                border-radius: 50%; position: fixed; pointer-events: none;
+                z-index: 10000; transition: transform 0.1s ease, width 0.2s, height 0.2s;
+                box-shadow: 0 0 15px var(--primary-glow);
+                transform: translate(-50%, -50%);
+            }
+        }
 
         body {
             background: var(--bg);
@@ -34,147 +46,114 @@
             z-index: -1;
         }
 
-        #custom-cursor {
-            width: 20px; height: 20px; border: 2px solid var(--primary);
-            border-radius: 50%; position: fixed; pointer-events: none;
-            z-index: 10000; transition: transform 0.1s ease;
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-
-        /* LOGIN */
+        /* LOGIN SCREEN - Agora com fundo roxo */
         #login-screen {
             position: fixed; inset: 0; display: flex; justify-content: center; align-items: center;
-            z-index: 9999; backdrop-filter: blur(25px);
+            z-index: 9999; backdrop-filter: blur(15px); 
+            background: linear-gradient(135deg, #1a0b2e 0%, #0a0414 100%);
         }
         .login-box {
-            background: var(--card-glass); padding: 50px; border-radius: 40px;
+            background: var(--card-glass); padding: 40px; border-radius: 40px;
             border: 1px solid var(--border-glass); text-align: center;
             width: 90%; max-width: 450px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
         }
         
         .logo-main {
             font-family: 'Syncopate', sans-serif; 
-            font-size: 5.5rem; 
+            font-size: clamp(2rem, 10vw, 3.5rem); 
             font-weight: 700;
             color: #fff;
             text-shadow: 0 0 25px var(--primary-glow);
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
+        .input-group { margin: 25px 0; text-align: left; }
         .input-label {
-            display: block;
-            text-align: left;
-            margin-left: 10px;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: var(--primary-light);
-            font-weight: 300;
-            opacity: 0.8;
-        }
-
-        .input-group {
-            margin: 25px 0;
-            text-align: left;
+            display: block; margin-left: 10px; margin-bottom: 8px;
+            font-size: 0.8rem; color: var(--primary-light); text-transform: uppercase; letter-spacing: 2px;
         }
 
         input {
-            width: 100%; padding: 22px; background: rgba(0,0,0,0.6); 
-            border: 1px solid var(--border-glass); border-radius: 20px; color: #fff;
-            font-size: 1.1rem; text-align: center; outline: none;
-            transition: 0.3s;
+            width: 100%; padding: 18px; background: rgba(0,0,0,0.6); 
+            border: 1px solid var(--border-glass); border-radius: 15px; color: #fff;
+            font-size: 1.1rem; text-align: center; outline: none; transition: 0.3s;
         }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 30px var(--primary-glow); }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
 
         .btn-auth {
-            width: 100%; padding: 20px; background: var(--primary-light); color: #fff;
-            border: none; border-radius: 20px; font-weight: 900; font-size: 1.1rem;
+            width: 100%; padding: 18px; background: var(--primary); color: #fff;
+            border: none; border-radius: 15px; font-weight: 900; font-size: 1rem;
             text-transform: uppercase; cursor: pointer; transition: 0.4s;
-            box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2);
         }
-        .btn-auth:hover { 
-            background: var(--primary); 
-            box-shadow: 0 0 40px var(--primary-glow); 
-            transform: scale(1.02);
-        }
+        .btn-auth:hover { transform: scale(1.03); filter: brightness(1.2); }
 
-        /* PORTAL */
-        #portal-content { display: none; padding-bottom: 100px; }
+        /* PORTAL CONTENT */
+        #portal-content { display: none; padding-bottom: 60px; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         .nav-header {
-            padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-glass); position: sticky; top: 0; z-index: 100;
         }
 
         .trust-bar {
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-            padding: 10px; text-align: center; font-size: 0.8rem;
-            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-            letter-spacing: 2px; color: var(--success); font-weight: bold;
-        }
-
-        #banner {
-            width: 85%; max-width: 1100px; display: block; margin: 40px auto;
-            border-radius: 30px; border: 1px solid var(--border-glass);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.03); 
+            padding: 12px; 
+            text-align: center; 
+            font-size: clamp(0.6rem, 2vw, 0.8rem); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            letter-spacing: 1px; 
+            color: #FFFFFF; 
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px; padding: 0 8%; max-width: 1400px; margin: 40px auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; padding: 0 5%; max-width: 1300px; margin: 40px auto;
         }
 
-        /* CARD COM BORDA ROXA FIXA */
         .card {
-            background: var(--card-glass); padding: 40px; border-radius: 35px;
-            border: 2px solid var(--primary); /* Borda fixa */
-            transition: 0.5s;
-            position: relative;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+            background: var(--card-glass); padding: 35px; border-radius: 30px;
+            border: 1px solid var(--primary); position: relative; transition: 0.4s;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-        .card:hover { 
-            transform: translateY(-10px); 
-            background: rgba(168, 85, 247, 0.08); 
-            box-shadow: 0 0 30px var(--primary-glow);
-        }
+        .card:hover { transform: translateY(-10px); background: rgba(168, 85, 247, 0.05); }
 
         .status-badge {
             position: absolute; top: 20px; right: 20px;
-            display: flex; align-items: center; gap: 8px;
-            font-size: 0.7rem; font-weight: 900; color: var(--success);
-            text-transform: uppercase; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.65rem; font-weight: 900; color: var(--success);
         }
         .dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; animation: blink 1.5s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        .card h3 { font-family: 'Syncopate'; font-size: 1.2rem; margin-bottom: 15px; }
-        .card p { color: #ccc; margin-bottom: 30px; font-size: 1rem; line-height: 1.5; }
+        .card h3 { font-family: 'Syncopate'; font-size: 1.1rem; margin-bottom: 15px; color: #fff; }
+        .card p { color: #aaa; margin-bottom: 25px; font-size: 0.95rem; line-height: 1.6; }
 
         .btn-link {
             display: block; background: var(--gold); color: #000; text-decoration: none;
-            padding: 18px; border-radius: 15px; font-weight: 900; text-align: center;
-            transition: 0.3s; text-transform: uppercase;
+            padding: 15px; border-radius: 12px; font-weight: 900; text-align: center;
+            transition: 0.3s; text-transform: uppercase; font-size: 0.9rem;
         }
-        .btn-link:hover { background: #b8860b; color: #fff; }
-
-        .history-btn-area { text-align: center; margin: 50px 0; }
-        .btn-history {
-            background: transparent; border: 1px solid var(--primary); color: white;
-            padding: 15px 40px; border-radius: 50px; cursor: none; transition: 0.3s;
-        }
-        .btn-history:hover { background: var(--primary); box-shadow: 0 0 30px var(--primary-glow); }
+        .btn-link:hover { filter: brightness(1.2); transform: translateY(-2px); }
 
         .about-box {
-            display: none; max-width: 800px; margin: 20px auto; padding: 40px;
-            background: var(--card-glass); border-radius: 30px; border: 1px solid var(--border-glass);
-            backdrop-filter: blur(20px); text-align: justify; line-height: 1.8;
+            display: none; max-width: 800px; margin: 20px auto; padding: 30px;
+            background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid var(--border-glass);
+            text-align: center; line-height: 1.8; animation: slideUp 0.5s ease;
         }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         .fiscal-info {
-            margin-top: 40px; padding: 20px; border-top: 1px solid var(--border-glass);
-            display: flex; justify-content: center; gap: 40px; opacity: 0.7; font-size: 0.8rem;
+            margin-top: 50px; padding: 20px; display: flex; flex-wrap: wrap; 
+            justify-content: center; gap: 20px; opacity: 0.5; font-size: 0.7rem;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        @media (max-width: 768px) { * { cursor: default; } #custom-cursor { display: none; } }
     </style>
 </head>
 <body>
@@ -184,62 +163,69 @@
 
     <div id="login-screen">
         <div class="login-box">
-            <div class="logo-main">JB</div>
-            <p style="font-family: 'Syncopate'; font-size: 0.6rem; color: var(--primary); letter-spacing: 3px; margin-bottom: 30px;">SISTEMA DE ACESSO</p>
+            <div class="logo-main">JB LOJAS</div>
+            <p style="font-family: 'Syncopate'; font-size: 0.6rem; color: var(--primary); letter-spacing: 4px; margin-bottom: 30px; font-weight: 700; text-transform: uppercase;">PAINEL DE LOJAS</p>
             
             <div class="input-group">
-                <label class="input-label">seu nome aqui</label>
-                <input type="text" id="user-nick" maxlength="15">
+                <label class="input-label">Identificação</label>
+                <input type="text" id="user-nick" placeholder="Seu nome aqui" maxlength="15" onkeydown="if(event.key==='Enter') startPortal()">
             </div>
 
-            <button class="btn-auth" onclick="startPortal()">CONECTAR AO HUB</button>
+            <button class="btn-auth" onclick="startPortal()">ENTRAR NO SISTEMA</button>
         </div>
     </div>
 
     <div id="portal-content">
-        <div class="nav-header">
+        <nav class="nav-header">
             <div style="font-family: 'Syncopate'; font-size: 0.7rem;">
-                <span style="opacity: 0.5;">ID:</span> <span id="display-user" style="color: var(--primary);">---</span>
+                <span style="opacity: 0.5;">USUÁRIO:</span> <span id="display-user" style="color: var(--primary);">---</span>
             </div>
-            <button onclick="exit()" style="background:none; border:none; color:#ff4d4d; font-family:'Syncopate'; font-size:0.6rem; cursor:none;">[ LOGOUT ]</button>
-        </div>
+            <button onclick="exit()" style="background:none; border:none; color:#ff4d4d; font-family:'Syncopate'; font-size:0.6rem; font-weight:700;">[ SAIR ]</button>
+        </nav>
 
         <div class="trust-bar">
-            🛡️ COMPRA SEGURA: EMITIMOS NOTA FISCAL E RECIBO EM TODAS AS VENDAS
+            🛡️ AMBIENTE CRIPTOGRAFADO & COMPRA GARANTIDA COM NOTA FISCAL
         </div>
-
-        <img src="1001121364.png" id="banner">
 
         <div class="grid">
             <div class="card">
-                <div class="status-badge"><div class="dot"></div> ONLINE</div>
-                <h3>JB STORE 🛒</h3>
-                <p>Scripts exclusivos e automações de elite. Entrega imediata via sistema automatizado.</p>
-                <a href="https://discord.gg/T3t5vPxmDm" target="_blank" class="btn-link">ACESSAR LOJA</a>
+                <div>
+                    <div class="status-badge"><div class="dot"></div> ONLINE</div>
+                    <h3>JB STORE 🛒</h3>
+                    <p>Scripts exclusivos e automações de elite desenvolvidas para máxima eficiência. Entrega imediata.</p>
+                </div>
+                <a href="https://discord.gg/T3t5vPxmDm" target="_blank" rel="noopener" class="btn-link">ACESSAR LOJA</a>
             </div>
+
             <div class="card">
-                <div class="status-badge"><div class="dot"></div> ONLINE</div>
-                <h3>JB DESIGN 🎨</h3>
-                <p>Artes disruptivas e identidades 4K. Transformamos sua marca em autoridade visual.</p>
-                <a href="https://discord.gg/Hp2m2BQr4E" target="_blank" class="btn-link">ACESSAR DESIGN</a>
+                <div>
+                    <div class="status-badge"><div class="dot"></div> ONLINE</div>
+                    <h3>JB DESIGN 🎨</h3>
+                    <p>Identidades visuais 4K e artes disruptivas. Elevamos o patamar estético do seu projeto.</p>
+                </div>
+                <a href="https://discord.gg/Hp2m2BQr4E" target="_blank" rel="noopener" class="btn-link">SOLICITAR DESIGN</a>
             </div>
+
             <div class="card">
-                <div class="status-badge"><div class="dot"></div> ONLINE</div>
-                <h3>JB OTIMIZAÇÕES ⚡</h3>
-                <p>Otimização extrema para PC e Softwares. Performance máxima garantida.</p>
-                <a href="https://discord.gg/pV73vGbkKG" target="_blank" class="btn-link">ACESSAR OTIMIZAÇÕES</a>
+                <div>
+                    <div class="status-badge"><div class="dot"></div> ONLINE</div>
+                    <h3>JB OTMIZAÇÕES ⚡</h3>
+                    <p>Performance extrema. Otimização de sistemas e softwares para ganho real de FPS e resposta.</p>
+                </div>
+                <a href="https://discord.gg/pV73vGbkKG" target="_blank" rel="noopener" class="btn-link">MELHORAR PC</a>
             </div>
         </div>
 
-        <div class="history-btn-area">
-            <button class="btn-history" onclick="toggleAbout()">NOSSA HISTÓRIA ✨</button>
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="btn-auth" style="width: auto; padding: 15px 40px; border: 1px solid var(--primary); background: transparent;" onclick="toggleAbout()">NOSSA HISTÓRIA ✨</button>
+            
             <div id="about-box" class="about-box">
-                <h2 style="font-family: 'Syncopate'; font-size: 1.2rem; margin-bottom: 20px; color: var(--primary);">ARQUITETOS DA TECNOLOGIA</h2>
+                <h2 style="font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 20px; color: var(--primary);">ARQUITETOS DA TECNOLOGIA</h2>
                 <p>
-                    A <b>JB Group</b> é sinônimo de excelência digital. Operamos com transparência total, oferecendo suporte especializado e <b>garantia jurídica</b> (Nota Fiscal e Recibo) em todos os nossos serviços. <br><br>
-                    Desenvolvemos scripts, designs e otimizações que definem o novo padrão de qualidade no mercado. Seja bem-vindo ao futuro.
+                    O <b>JB Group</b> nasceu para redefinir o mercado digital. Operamos com transparência total, oferecendo suporte especializado e <b>garantia jurídica</b> em cada transação. <br><br>
+                    Desenvolvemos soluções que unem performance, estética e segurança. Bem-vindo à elite.
                 </p>
-                <div style="margin-top: 30px; font-family: 'Syncopate'; font-size: 0.8rem; color: var(--primary);">
+                <div style="margin-top: 25px; font-family: 'Syncopate'; font-size: 0.7rem; color: var(--primary); opacity: 0.8;">
                     FOUNDERS: JOAO • NATHAN • EXCELENCIA
                 </div>
             </div>
@@ -249,22 +235,38 @@
             <span>✅ RECIBO DIGITAL</span>
             <span>📄 NOTA FISCAL DISPONÍVEL</span>
             <span>💳 PAGAMENTO SEGURO</span>
+            <span>🚀 SUPORTE 24/7</span>
         </div>
     </div>
 
     <script>
         const cursor = document.getElementById('custom-cursor');
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
+        if (cursor) {
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            document.querySelectorAll('a, button, input').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursor.style.background = 'var(--primary-glow)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursor.style.background = 'transparent';
+                });
+            });
+        }
 
         function startPortal() {
             const nick = document.getElementById('user-nick').value.trim();
             if(nick.length >= 2) {
                 localStorage.setItem('jb_final_nick', nick);
                 renderPortal(nick);
-            } else { alert("ACESSO NEGADO: INSIRA UM NICK"); }
+            } else { 
+                alert("SISTEMA: Identificação inválida. Mínimo 2 caracteres."); 
+            }
         }
 
         function renderPortal(nick) {
@@ -280,7 +282,7 @@
         }
 
         function exit() {
-            localStorage.clear();
+            localStorage.removeItem('jb_final_nick');
             location.reload();
         }
 
